@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this指向</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function test(){
+        function aa(){
+            console.log(this)
+        }
+        return aa
+    }
+    test()()
+
+    var a = 10
+    function foo(){
+        console.log(this);
+        // return this
+    }
+
+    var obj = {
+        a:3,
+        foo:foo
+    }
+    
+
+    var bar = obj.foo()
+</script>

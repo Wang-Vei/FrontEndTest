@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圣杯</title>
+</head>
+<body>
+    <div class="grid">
+        <div class="header">Title</div>
+        <div class="main">Content</div>
+        <div class="left">Aside</div>
+        <div class="right">Ads</div>
+        <div class="footer">Footer</div>
+    </div>
+    
+</body>
+</html>
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+    }
+    .header{
+        background-color: #e7e413;
+        grid-area: header;
+    }
+    .left{
+        background-color: #08154e;
+        grid-area: left;
+    }
+    .main{
+        grid-area: main;
+    }
+    .right{
+        background-color: #13c7e7;
+        grid-area: right;
+    }
+    .footer{
+        background-color: #1a1903;
+        grid-area: footer;
+    }
+    .grid{
+        width: 100%;
+        display: grid;
+        grid-template-areas: 'header header header'
+                             'left main right'
+                             'footer footer footer';
+        grid-template-columns: 220px 1fr 200px;
+        grid-template-rows: 50px 1fr 60px;
+        height: 100vh;
+    }
+    .grid > div {
+        display: grid;
+        text-align: center;
+        align-items: center;
+    }
+    
+
+    @media screen and (max-width: 600px){
+        .grid{
+            grid-template-areas: 
+            'header'
+            'left'
+            'main'
+            'right'
+            'footer';
+            grid-template-columns: 100%;
+            grid-template-rows: 50px 50px 1fr 50px 30px;
+        }
+    }
+
+</style>

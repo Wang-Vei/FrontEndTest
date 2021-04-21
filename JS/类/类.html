@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类的工作原理</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+  class User{
+    constructor(name){
+        this.name = name
+    }
+    show(){}
+  }
+  let u = new User('王')
+const a= 6;
+
+let aa = 7;
+let bb = 74;
+
+
+    
+    
+    // 类
+//——————————————————————————————————————
+    // 原型函数
+
+    function Vince(name) { 
+        this.name  = name
+     }
+    Vince.prototype.show = function (name) { }
+    let v = new Vince('wong')
+    
+    
+
+
+
+
+    console.dir(User)
+    console.dir(Vince)
+    console.log(User === User.prototype.constructor) //true
+    console.log(Vince === Vince.prototype.constructor) //true
+    console.log(v)
+    console.log(u)
+    console.log(Object.getOwnPropertyNames(u)) // ['name']
+    console.log(Object.getOwnPropertyNames(v)) // ['name']
+    console.log(Object.getOwnPropertyNames(User.prototype)) // ['constructor', 'show']
+    console.log(Object.getOwnPropertyNames(Vince.prototype)) // ['constructor', 'show']
+
+</script>

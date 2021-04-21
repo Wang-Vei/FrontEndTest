@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>super</title>
+</head>
+<body>
+    <main class="tab1">
+        <nav>
+            <div class="nav-item">
+                <a href="javascript:;">one</a>
+            </div>
+            <div class="nav-item">
+                <a href="javascript:;">two</a>
+            </div>
+        </nav>
+        <section>1</section>
+        <section>2</section>
+    </main>
+    
+    <main class="tab2">
+        <nav>
+            <div class="nav-item">
+                <a href="javascript:;">three</a>
+            </div>
+            <div class="nav-item">
+                <a href="javascript:;">four</a>
+            </div>
+            <div class="nav-item">
+                <a href="javascript:;">five</a>
+            </div>
+        </nav>
+        <section>3</section>
+        <section>4</section>
+        <section>5</section>
+    </main>
+</body>
+</html>
+<style>
+main {
+    width: 400px;
+    height: 400px;
+    float: left;
+    margin-right: 20px;
+}
+.nav-item {
+    width: 80px;
+    height: 30px;
+    float: left;
+    text-align: center;
+    color: #fff;
+    background-color: aquamarine;
+}
+
+main nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+main nav > .nav-item:first-of-type{
+    background-color: #ff6700;
+}
+main section{
+    width: 100%;
+    height: 80%;
+    background-color: #ff6700;
+    display: block;
+}
+main section:first-of-type {
+    display: none;
+}
+</style>
+
+
+<script>
+    function extend(sub, sup) { 
+        sub.prototype = Object.create(sup.prototype);
+        Object.defineProperty(sub.prototype, 'constructor', {
+            value:sup,
+            enumerable:false
+        })
+     }
+
+
+    function Animation() { }
+
+    Animation.prototype.hide = function () { 
+        this.style.display = 'none'
+     }
+
+    Animation.prototype.show = function () { 
+         this.style.display = 'block'
+    }
+
+    Animation.prototype.background = function (color) { 
+        this.style.backgroundColor = color
+    }
+
+    //  let tab = document.querySelector('.tab2')
+    //  Animation.prototype.background.call(tab,'red')
+
+    
+    // Tab 中的各个元素对象
+    function Tab(el) { 
+        this.tab = document.querySelector(el)
+        this.tag = this.tab.querySelectorAll('.nav-item')
+        this.section = this.tab.querySelectorAll('section')
+     }
+     extend(Tab, Animation)
+
+    // 元素运行开始 (操作前需要初始化各个元素的状态)
+    Tab.prototype.run = function () { 
+        this.bindEvent()
+        this.section.forEach((el, i) => {
+            this.hide.call(el)
+        })
+        this.show.call(this.section[0])
+     }
+
+    Tab.prototype.bindEvent = function () { 
+        this.tag.forEach((el, i) => {
+             el.addEventListener('click', () => {
+                 this.action(i)
+             })
+        });
+     }
+
+     // 点击标签改变的动作
+     Tab.prototype.action = function (i) { 
+        this.reset()
+        this.background.call(this.tag[i], '#ff6700')          //*
+        this.show.call(this.section[i])                       //*
+      }
+
+    // 重置
+    Tab.prototype.reset = function () { 
+        this.tag.forEach((el, i) => {
+            this.background.call(el, 'aquamarine')
+        })
+        this.section.forEach((el, i) => {
+            this.hide.call(el)
+        })
+    }
+
+     new Tab('.tab1').run()
+     new Tab('.tab2').run()
+</script>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型链——contructor</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+
+    // 3、原型链——contructor使用
+    function Person(name) {
+        this.a = 1;
+        this.b = 2;
+        this.name = name
+    }
+
+    /*3-1、constructor 的作用*/
+    Person.prototype = {
+        constructor: Person, // 必须写constructor（指针） 因为prototype中一定要有constructor
+        show(){
+            console.log(this.name)
+        }
+    }
+
+    let lisi = new Person.prototype.constructor('李四')
+    lisi.show()
+    console.log(lisi)
+
+    let vince = new Person()
+    // console.dir(vince.__proto__) //Object (Person.prototype)
+    // console.log(vince.__proto__ === Person.prototype) // true
+    // console.log(vince.prototype) // undefined
+    // console.log(vince.constructor) // Person
+
+    function creatNewInstanceByOld(obj, ...args) {
+        const constructor = Object.getPrototypeOf(obj).constructor
+        return new constructor(...args)
+    }
+    let Anny = creatNewInstanceByOld(vince,'安妮')
+    Anny.show() // 安妮
+
+    
+
+</script>

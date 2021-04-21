@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型链判断</title>
+</head>
+<body>
+    <div class="web-body">
+        <h3>instanceof</h3>
+        <h4>a instalceof b ———— a的原型链上是否有 b.prototype (new)</h4>
+        <div class="out-border">
+            function A() {  } <br>
+            function B() {  } <br>
+            function C() {  } <br><br>
+            let c = new C()   <span class="remark">//c.__proto__ === C.prototype</span><br>
+            B.prototype = c <br>
+            let b = new B()   <span class="remark">//b.__proto__ === B.prototype</span><br>
+            A.prototype = b <br>
+            let a = new A()   <span class="remark">//a.__proto__ === A.prototype</span><br><br>
+            console.log(a instanceof A) // true<br>
+            console.log(a instanceof B) // true<br>
+            console.log(a instanceof C) // true<br>
+            console.log(a instanceof Object) //true
+        </div>
+
+        <h3>isPrototypeOf</h3>
+        <h4>b.isPrototypeOf(a) ———— a 的原型链上 是否有 b (setPrototypeOf)</h4>
+        <div class="out-border">
+            let d = {} <br>
+            let e = {}<br>
+            let f = {}<br>
+            Object.setPrototypeOf(e, f)  <span class="remark">//e.__proto__ === f</span><br>
+            Object.setPrototypeOf(d, e)  <span class="remark">//d.__proto__ === e</span><br><br>
+            console.log(e.isPrototypeOf(d)) //true<br>
+            console.log(f.isPrototypeOf(e)) //true<br>
+            console.log(f.isPrototypeOf(d)) //true<br>
+            console.log(Object.prototype.isPrototypeOf(d)) // true
+        </div>
+    </div>
+</body>
+<style>
+    h4{
+        margin-bottom: 10px;
+    }
+    .web-body{
+        width: 50%;
+        margin: 0 auto;
+    }
+    .out-border{
+        padding: 5px 10px;
+        color: #fff;
+        background-color: rgb(73, 71, 71);
+        border: 1px solid #000;
+        border-radius: 20px;
+        margin-bottom: 15px;
+    }
+    .remark{
+        color: rgb(238, 3, 3);
+    }
+</style>
+</html>
+
+
+<script>
+    /* instanceof */
+    // a instanceof b 是判断 b.prototype 是否在 a 的原型链上  new
+    // b.isPrototypeOf(a)  是判断 b 是否 在 a 的原型链上  setPrototypeOf
+    function A() {  }
+    function B() {  }
+    function C() {  }
+    let c = new C()
+    B.prototype = c
+    let b = new B()
+    A.prototype = b
+    let a = new A()
+
+    console.log(a instanceof A) // true
+    console.log(a instanceof B) // true
+    console.log(a instanceof C) // true
+    console.log(a instanceof Object) //true
+
+    let d = {}
+    let e = {}
+    let f = {}
+    Object.setPrototypeOf(e, f) // e.__proto__ === f
+    Object.setPrototypeOf(d, e) // d.__proto__ === e
+    console.log(e.isPrototypeOf(d)) //true
+    console.log(f.isPrototypeOf(e)) //true
+    console.log(f.isPrototypeOf(d)) //true
+    console.log(Object.prototype.isPrototypeOf(d)) // true
+
+</script>

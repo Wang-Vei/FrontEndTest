@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择器</title>
+</head>
+<body>
+    <div id="header">头部标签</div>
+    <div class="grid">
+        <div class="column1 item1"><span>column1</span> </div>
+        <div class="column2 item2">column2</div>
+        <div class="column3 item3">column3</div>
+        <div class="column4 item4">column4</div>
+        <div class="column5 item5">column5</div>
+        <div class="column6 item6">column6</div>
+        <div class="column7 item7">column7</div>
+        <div class="column8 item8">column8</div>
+        <div class="column9 item9">column9</div>
+
+        <div class="column10"></div> <!-- 空元素 empty -->
+    </div>
+    <a href="#header">返回头部</a>
+    
+</body>
+</html>
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+    }
+    .grid{
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(3, 200px);
+        grid-template-rows: repeat(3, 200px);
+        gap: 10px;
+    }
+    .grid > div:first-child span{
+        border-bottom: 3px solid red;
+        border-radius: 50%;
+    }
+    /* ~ 同级兄弟选择器 不包括自己 */
+    .column1 ~ div{
+        background-color: cornflowerblue;
+    }
+
+    /* + 最近的 */
+    .column1 + div{
+        background-color: cyan;
+    }
+    
+    .grid > div:hover:not(:nth-last-child(-n+2)){  /*除了倒数第二个*/
+        box-shadow: 5px 5px 15px 3px black;
+    }
+    div:target{
+        color: darkred;
+    }
+    div:empty{
+        display: none;
+    }
+
+    /** 属性 **/
+
+    /* 
+    ^=  以...开头的 
+    $= 以...结尾(所有类名的最后)
+    *= 只要包含...;  
+    ~= 空格分开的单独的词;
+    |= 以...开始，可以接 -...）
+    */
+
+    div[class$='3'] {
+        background-color: darkgoldenrod;
+    }
+
+    /** 伪类 **/
+    /*
+    :root 根元素
+    :empty 空元素
+    :hover 鼠标悬停
+    :target 触发锚点后的目标样式
+    :first-child 第一个子元素
+    :first-of-type h1:first-of-type 第一个h1
+    :only-child 只有一个的子元素
+    :only-of-type 只有一个当前类型的子元素 h1:only-of-type
+    :not 排除选择器
+
+    a链接
+    :link 初始状态状态
+    :active 点击时状态（按下鼠标）
+    :visited 点击之后状态（抬起鼠标）
+
+    form
+    :focus 获取焦点
+    :blur 失焦
+    :disabled 禁用的input
+    :enabled 可用的input
+    :optional 非必填项
+    :required 必填项
+    :valid 有效的
+    :invalid 无效的 （表单控件验证失败，必填，邮箱等特殊格式）
+
+    文本
+    p::first-letter 段落第一个词
+    p::first-line 段落第一行
+    */
+    
+
+
+</style>

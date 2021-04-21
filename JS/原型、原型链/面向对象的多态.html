@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面向对象的多态</title>
+</head>
+<body>
+    <div class="web-body">
+              
+        <h4>多态</h4>
+        
+        <!-- <div class="out-border">  
+        </div> -->
+
+    </div>
+    
+</body>
+</html>
+<style>
+    h4{
+        margin-bottom: 10px;
+    }
+    .web-body{
+        width: 50%;
+        margin: 0 auto;
+    }
+    .out-border{
+        padding: 5px 10px;
+        color: #fff;
+        background-color: rgb(73, 71, 71);
+        border: 1px solid #000;
+        border-radius: 20px;
+        margin-bottom: 15px;
+    }
+</style>
+<script>
+    /* 多态 */
+
+    function extend(sub, sup) {                       // 封装调用
+        sub.prototype = Object.create(sup.prototype)
+        Object.defineProperty(sub.prototype, 'constructor', {
+        value: sub,
+        enumerable:false
+        })
+     }
+
+    function User() {  }
+    User.prototype.show = function () {                        // *
+        console.log(this.discription())                        // *
+    }
+
+    function Admin() { }
+    // Admin.prototype = Object.create(User.prototype)
+    // Object.defineProperty(Admin.prototype, 'constructor', {
+    //     value: Admin,
+    //     enumerable:false
+    // })
+    extend(Admin, User)
+    Admin.prototype.discription = function () { 
+        return '管理员'
+     }
+
+    function Person() { }
+    // Person.prototype = Object.create(User.prototype)
+    // Object.defineProperty(Person.prototype, 'constructor', {
+    //     value: Person,
+    //     enumerable:false
+    // })
+    extend(Person, User)
+    Person.prototype.discription = function () { 
+        return '用户'
+     }
+
+    function Member() { }
+    // Member.prototype = Object.create(User.prototype)
+    // Object.defineProperty(Member.prototype, 'constructor', {
+    //     value: Member,
+    //     enumerable:false
+    // })
+    extend(Member, User)
+    Member.prototype.discription = function () { 
+        return '成员'
+     }
+
+
+     for (let obj of [new Admin, new Person, new Member]) {
+         obj.show()                                             // *
+     }
+     // 管理员
+     // 用户
+     // 成员
+
+</script>

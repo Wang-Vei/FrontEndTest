@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>call和apply</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    let vc = {
+        data:[5,8,41,2,4,5,1,56,8,5,2]
+    };
+    Object.setPrototypeOf(vc, {
+        max(){
+            return this.data.sort((a,b) => b-a)[0]
+        }
+    }),
+    console.log(vc.max()) // 56
+
+    var ven = {
+        lesson:{js:85,node:89,linux:90},
+        // getter
+        get data(){
+            return Object.values(this.lesson)
+        }
+    }
+
+    console.log(vc.max.apply(ven)) // 90
+
+
+</script>

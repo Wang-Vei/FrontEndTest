@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>继承</title>
+</head>
+<body>
+    <div class="web-body">
+              
+        <h4>继承</h4>
+        <h5>继承：原型的继承 a.prototype.__proto__ = b.prototype,而不是本身（a）继承</h5>
+        
+        <!-- <div class="out-border">  
+        </div> -->
+
+    </div>
+    
+</body>
+</html>
+<style>
+    h4{
+        margin-bottom: 10px;
+    }
+    .web-body{
+        width: 50%;
+        margin: 0 auto;
+    }
+    .out-border{
+        padding: 5px 10px;
+        color: #fff;
+        background-color: rgb(73, 71, 71);
+        border: 1px solid #000;
+        border-radius: 20px;
+        margin-bottom: 15px;
+    }
+</style>
+<script>
+    /* 继承 */
+    // 继承：原型的继承 a.prototype.__proto__ = b.prototype,而不是本身（a）继承
+    
+    function User() {  }
+    User.prototype.name = function () { 
+        console.log('user.name')
+    }
+
+    function Admin() {  }
+    // Admin.prototype.__proto__ = User.prototype    // *
+    Admin.prototype = Object.create(User.prototype)  // *
+    // Admin.prototype.constructor = Admin              // *
+    Object.defineProperty(Admin.prototype,'constructor', {
+        value: Admin,
+        enumerable: false  // 不可枚举（遍历）
+    })
+    console.log(Admin.prototype)
+    console.log(Object.getOwnPropertyDescriptors(Admin.prototype))
+
+    Admin.prototype.role = function () { 
+        console.log('admin.role')
+    }
+    // console.dir(Admin)
+    // let a = new Admin()
+     
+    // a.role()
+    // a.name()
+
+    //  function Member() {  }
+    //  Member.prototype.__proto__ = User.prototype
+    //  Member.prototype.role = function () { 
+    //      console.log('member.role')
+    // }
+    // let m = new Member()
+    // m.role()
+    // m.name()
+
+</script>

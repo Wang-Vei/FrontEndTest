@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>super</title>
+</head>
+<body>
+    <div class="web-body">
+              
+        <h4>super</h4>
+        
+        <!-- <div class="out-border">  
+        </div> -->
+
+    </div>
+    
+</body>
+</html>
+<style>
+    h4{
+        margin-bottom: 10px;
+    }
+    .web-body{
+        width: 50%;
+        margin: 0 auto;
+    }
+    .out-border{
+        padding: 5px 10px;
+        color: #fff;
+        background-color: rgb(73, 71, 71);
+        border: 1px solid #000;
+        border-radius: 20px;
+        margin-bottom: 15px;
+    }
+</style>
+<script>
+    function extend(sub, sup) {                       // 封装调用
+        sub.prototype = Object.create(sup.prototype)
+        Object.defineProperty(sub.prototype, 'constructor', {
+        value: sub,
+        enumerable:false
+        })
+     }
+
+     const Address = {
+         getAddress() {
+             return '地址'
+         }
+     }
+
+     const Request = {
+         ajax() {
+             return '请求'
+         }
+     }
+
+     const Credit = {
+        __proto__ : Request,
+        total() {
+            console.log(this)
+            console.log(this.__proto__)
+            console.log(this.__proto__.ajax() + '积分')
+            console.log(super.ajax() + '积分')            //*
+        }
+     }
+
+
+     function User(name, age) { 
+         this.name = name
+         this.age = age
+      }
+    User.prototype.show = function () {
+        console.log(this.name, this.age)
+    }
+
+    function Admin(name, age) { 
+        User.call(this, name, age)
+     }
+    extend(Admin, User)
+    Admin.prototype = Object.assign(Admin.prototype, Request, Credit)  //*
+    let admin = new Admin('vince', 20)
+    admin.show()
+    admin.total()
+</script>

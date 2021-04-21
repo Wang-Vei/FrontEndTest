@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型链-对象</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+
+/*2 、对象原型链*/
+    let obj = new Object()
+    Object.prototype.mark = "mark"
+    // console.log(obj)
+    // console.dir(obj.__proto__) // Object
+    // console.dir(obj.__proto__.__proto__) // null
+    // console.dir(obj.constructor) // ƒ Object()
+
+    let num = new Number(123)
+    // let num1 = 123
+    // console.log(num1) // 123
+    // console.log(num) // Number{123}
+    // console.dir(num.__proto__) // Number
+    // console.dir(num.__proto__.__proto__) // Object
+    // console.dir(num.__proto__.__proto__.__proto__) // null
+    
+    /*2-1、自定义对象设置原型*/
+    let aa = {name:"AA"}
+    let parent = {
+        name:"PARENT",
+        show(){
+            console.log('parent name:' + this.name)
+        }
+    }
+    // console.dir(aa) // Object(parent)
+    console.log(Object.setPrototypeOf(aa, parent))  // 设置原型
+    console.log(Object.getPrototypeOf(aa))  // 获取原型
+    
+    // this 指向调用者
+    aa.show() // AA
+    parent.show() // PARENT
+    
+    
+    
+
+
+    
+
+</script>

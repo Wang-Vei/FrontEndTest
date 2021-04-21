@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类方法默认不能遍历</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    class User{
+      site = 'vince';
+      constructor(name){
+          this.name = name
+      }
+      show(){}
+    }
+
+
+    let hd = new User('lake')
+    let wv = new User('wv')
+    
+    // 类默认设置 Object.getOwnPropertyDescriptor enumerable 为false
+    console.log(
+      JSON.stringify(
+        Object.getOwnPropertyDescriptor(User.prototype, 'show'),
+        ['enumerable','writable'], //第二个参数  要显示的键的数组 没有就不显示
+        '...' // 分隔符  数字为缩进格数
+      )
+    )
+
+
+
+    function People() { }
+    People.prototype.show = function () {  }
+    let peo = new People()
+    Object.defineProperty(People.prototype,'show',{
+        enumerable:false
+    })
+    console.log(
+      JSON.stringify(
+        Object.getOwnPropertyDescriptor(People.prototype, 'show'),
+        ['enumerable','writable'], //第二个参数  要显示的键的数组 没有就不显示
+        '...' // 分隔符  数字为缩进格数
+      )
+    )
+    for(const key in hd) {
+        console.log(key)
+    }
+
+    // console.log(Object.getOwnPropertyDescriptor(User.property, 'show'))
+    // console.log(hd)
+    console.log(wv)
+
+</script>

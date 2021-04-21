@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上下文</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+  //声明变量后的查找顺序为 全局scope --> 全局对象
+
+  // let、const、class 声明的变量是创建在全局scope中 而var和function 声明是创建在全局对象中
+  let letTest = 'letTest'
+  console.log(letTest)  // 全局范围  letTest
+  console.log(window.letTest)  // 全局对象 undefinde
+
+
+  var varTest = 'obj'  // var 声明的变量是创建在全局对象中，
+  //先找全局scope找不到，再找全局对象  也就是说  varTest 和 window.varTest 指向的都是window对象中的 varTest
+  console.log(varTest)   // obj
+  console.log(window.varTest)  // obj
+  console.log(Function)  // Function
+  console.log(window.Function)  // Function
+
+/*变量提升*/ //（创建  初始化   赋值）
+  // 一、函数function
+    fn2()
+    function fn2(){
+      console.log(2)
+    }
+    //JS 引擎会有一下过程：
+    // 找到所有用 function 声明的变量，在环境中「创建」这些变量。
+    // 将这些变量「初始化」并「赋值」为 function(){ console.log(2) }。
+    // 开始执行代码 fn2()
+    // 也就是说 function 声明会在代码执行之前就「创建、初始化并赋值」。
+    
+  // 二、变量 var
+    {
+      let x = 1
+      x = 2
+    }
+    /*我们只看 {} 里面的过程：
+      找到所有用 let 声明的变量，在环境中「创建」这些变量
+      开始执行代码（注意现在还没有初始化）
+      执行 x = 1，将 x 「初始化」为 1（这并不是一次赋值，如果代码是 let x，就将 x 初始化为 undefined）
+      执行 x = 2，对 x 进行「赋值」
+    这就解释了为什么在 let x 之前使用 x 会报错：*/
+
+    /*原因有两个
+      1.console.log(x) 中的 x 指的是下面的 x，而不是全局的 x
+      2.执行 log 时 x 还没「初始化」，所以不能使用（也就是所谓的暂时死区）
+      看到这里，你应该明白了 let 到底有没有提升：
+
+      let 的「创建」过程被提升了，但是初始化没有提升。
+      var 的「创建」和「初始化」都被提升了。
+      function 的「创建」「初始化」和「赋值」都被提升了。*/
+
+  // 三、var 和 function 同时出现
+    // console.log(foo)
+    function foo() {  }  // 先/后都可以
+    var foo;     // 先/后都可以
+    console.log(foo); // f foo(){}
+    /*由于 function 比 var 多一个「赋值」过程，所以两个代码的输出都是函数。你也可以记住结论：function 比 var 牛逼。*/
+
+
+  let web = 'cc'
+  function hd() {
+    // console.log(window.web); //undefined
+    console.log(web);
+    // let web = 'web' // 临时性死区 TDZ  同一块级作用域中 如果先调用再声明 let 变量会报错，没声明的话就调用全局scope的变量 cc
+  }
+  hd()
+  // console.log(web); // 报错
+
+
+  
+  
+ 
+</script>

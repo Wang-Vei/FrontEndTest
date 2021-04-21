@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型练习</title>
+</head>
+<body>
+    <div class="web-body">
+              
+        <h4>原型</h4>
+        <h5>基本数据型：string number boolean object null undefined symbol    array Object</h5>
+        <h5>引用(构造函数)：String Number Boolean Object Function Array Date RegExp Error</h5>
+        
+        <div class="out-border">  
+            <h5>构造函数都是函数 所以:</h5>
+            <ol>
+                <li>(String/Number/...).constructor === Function</li>
+                <li>(String/Number/...).__proto__ === Function.prototype</li>
+                <li>(String/Number/...).__proto__.__proto__ === Object.prototype</li>
+                <li>Object.contructor === Function</li>
+            </ol>
+        </div>
+        <div  class="out-border legend"> 
+            <img src="./assets/dashentu.png" alt="">
+            <div style="color: #000;">
+                <em>*顺便还要说一下，图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</em>
+            </div>
+            <img src="./assets/ruantu.png" alt="">
+            <img src="./assets/yingtu.png" alt="" width="100%">
+        </div>
+        
+        <h4>1、getPrototypeOf  ———— Object.getPrototypeOf(obj);</h4>
+        <div class="out-border">
+            <ul>
+                <li> 查看obj的原型 相当于浏览器提供的 __poroto__； </li>
+            </ul>
+        </div>
+
+        
+        <h4>2、setPrototypeOf  ———— Object.setPrototypeOf(obj1, obj2);</h4>
+        <div class="out-border">
+            <ul>
+                <li> obj1.__proto__ === obj2 </li>
+                <li> 把obj2 设为 obj1 的原型</li>
+            </ul>
+        </div>
+
+        <h4>3、isPrototypeOf ———— object1.isPrototypeOf(object2);</h4>
+        <div class="out-border">   
+            <ul>
+                <li> object1是一个对象的实例； </li>
+                <li> object2是另一个将要检查其原型链的对象。</li>
+            </ul>
+        </div>
+
+        <h4>4、hasOwnProperty / in  ———— object.hasOwnProperty(proName);</h4>
+        <div class="out-border">
+            <ul>
+                <li> in判断的是对象的所有属性，包括对象实例及其原型的属性； </li>
+                <li> 而hasOwnProperty则是判断对象实例的本身是否具有某个属性(不包括继承属性)。</li>
+            </ul>
+        </div>
+    </div>
+    
+</body>
+</html>
+<style>
+    h4{
+        margin-bottom: 10px;
+    }
+    .web-body{
+        width: 50%;
+        margin: 0 auto;
+    }
+    .out-border{
+        padding: 5px 10px;
+        color: #fff;
+        background-color: rgb(73, 71, 71);
+        border: 1px solid #000;
+        border-radius: 20px;
+        margin-bottom: 15px;
+    }
+    .out-border.legend{
+        background-color: #fff;
+        border: 1px solid #000;
+    }
+</style>
+<script>
+    /* 原型 */
+    // 基本数据型：string number boolean object null undefined symbol    array Object
+    // 引用(构造函数)：String Number Boolean Object Function Array Date RegExp Error
+    // 构造函数都是函数 所以 
+    // 1、(String/Number/...).constructor === Function
+    // 2、(String/Number/...).__proto__ === Function.prototype
+    // 3、(String/Number/...).__proto__.__proto__ === Object.prototype
+    // 4、Object.contructor === Function
+
+/*isPrototypeOf*/
+// object1.isPrototypeOf(object2); 
+// object1是一个对象的实例； 
+// object2是另一个将要检查其原型链的对象。
+
+/*hasOwnProperty*/
+// object.hasOwnProperty(proName); 
+// in判断的是对象的所有属性，包括对象实例及其原型的属性； 
+// 而hasOwnProperty则是判断对象实例的是否具有某个属性。
+
+
+    
+    Number.prototype.age = 16
+    Object.prototype.height = 175
+    var a = new String("abc")
+    var b = new Number(132)
+    var c = new Object()
+    // Object.prototype.name === 654
+    c.name = 654
+    c.age = 'vince'
+    var d = 789
+    var e = function(params) {
+        
+    }
+    var f = new e()
+
+    
+    // console.log(a)
+    // console.log(b)
+    console.log(c)
+    console.log(c.__proto__)
+    console.log(c.hasOwnProperty("name"))
+    console.log(Object.constructor === Function) // true 
+    // console.log(d)
+
+    // console.log(typeof a)   // object
+    // console.log(typeof b)   // object
+    // console.log(typeof c)   // object
+    // console.log(typeof d)   // number
+    // console.log(b instanceof Number)   // true
+    // console.log(d instanceof Number)   // false
+    // console.log(Object.getPrototypeOf(d))   // Number
+    // console.log(Object.getPrototypeOf(b))   // Number
+
+    let cindy = Object.create(c) // cindy的__proto__ 指向c
+    cindy.title = '测试'
+    console.log(cindy.hasOwnProperty("title")) // true
+    console.log(cindy.hasOwnProperty("name")) // false
+    console.log(c.isPrototypeOf(cindy)) // true
+    console.dir(cindy)
+
+
+
+    //完全字典对象（没有父代原型）
+    let Gg = Object.create(null, {name:{value:'GG'}})
+    console.log(Gg) // {name: "GG"} 没有__proto__属性
+
+    console.log(Gg.hasOwnProperty("name")) 
+    // Uncaught TypeError: Gg.hasOwnProperty is not a function
+    // 没有原型 就没有所对应的方法
+
+</script>

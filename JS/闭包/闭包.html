@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭包</title>
+</head>
+<body>
+    <div class="web-body">
+              
+        <h4>闭包</h4>
+        <h4>全局声明的变量不会被回收</h4>
+        <div class="out-border"> 
+            <ol>
+                <li></li>
+            </ol>
+        </div>
+
+    </div>
+    
+</body>
+</html>
+
+<style>
+    h4{
+        margin-bottom: 10px;
+    }
+    .web-body{
+        width: 50%;
+        margin: 0 auto;
+    }
+    .out-border{
+        padding: 5px 10px;
+        color: #fff;
+        background-color: rgb(73, 71, 71);
+        border: 1px solid #000;
+        border-radius: 20px;
+        margin-bottom: 15px;
+    }
+    .out-border.legend{
+        background-color: #fff;
+        border: 1px solid #000;
+    }
+</style>
+
+
+<script>
+    // 全局声明的变量不会被回收
+    // let title = 'closure'
+    // function show() { 
+    //     let name = 'vince'
+    //     function dust() { 
+    //         var site = 'cislunar'
+    //         // console.log(site)
+    //      }
+    //      dust()
+    //      console.log(site)      // site is not defined       *
+    //  }
+    //  show()
+
+
+    function show() { 
+        let name = 'vince'
+        return function dust() { 
+            var site = 'cislunar'
+            // console.log(name)
+         }
+         console.log(site)      // site is not defined       *
+     }
+
+     let aa = show()
+     let bb = show()
+     
+</script>
